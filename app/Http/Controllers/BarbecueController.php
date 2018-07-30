@@ -19,6 +19,8 @@ class BarbecueController extends Controller
         $user = $request->user();
         $minDist = 10;
         $bbqs = Bbq::all()->filter(function ($barbecue, $key) use ($user, $minDist) {
+            if(!isset($user->last_latitude) || !isset($user->last_longitude) || !isset($barbecue->latitude) || !isset($barbecue->longitude))
+                return false;
             return self::distance($barbecue->latitude, $barbecue->longitude, $user->last_latitude, $user->last_longitude, $minDist); //$barbecue > 2;
         });
         return response()->json([
@@ -40,8 +42,8 @@ class BarbecueController extends Controller
             'description' => 'string|max:255',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'model' => 'string|max:20',
-            'latitude' => 'string|max:10',
-            'longitude' => 'string|max:10',
+            'latitude' => 'required|string|max:10',
+            'longitude' => 'required|string|max:10',
         ]);
 
         if ($request->hasFile('image')) {
@@ -102,8 +104,8 @@ class BarbecueController extends Controller
             'description' => 'string|max:255',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'model' => 'string|max:20',
-            'latitude' => 'string|max:10',
-            'longitude' => 'string|max:10',
+            'latitude' => 'required|string|max:10',
+            'longitude' => 'required|string|max:10',
         ]);
 
         if ($request->hasFile('image')) {

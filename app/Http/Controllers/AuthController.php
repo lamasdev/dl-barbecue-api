@@ -28,9 +28,7 @@ class AuthController extends Controller
             'lastName' => 'required|string',
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|confirmed',
-            'zipCode' => 'required|string',
-            'lastLatitude' => 'string|max:10',
-            'lastLongitude' => 'string|max:10',
+            'zipCode' => 'required|string|min:4',
         ]);
         $user = new User([
             'name' => $request->name,
@@ -45,6 +43,7 @@ class AuthController extends Controller
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
         $token->save();
+        $user = $user->whereId($user->id)->with(['reserves', 'barbecues'])->first();
         return response()->json([
             'message' => 'Successfully created user!',
             'access_token' => $tokenResult->accessToken,
