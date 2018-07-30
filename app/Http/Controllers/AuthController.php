@@ -77,6 +77,11 @@ class AuthController extends Controller
         $token = $tokenResult->token;
         $token->save();
         $userId = $user->id;
+        if(isset($request->lastLatitude) && isset($request->lastLongitude))
+            $user->whereId($userId)->update([
+                'last_latitude' => $request->lastLatitude,
+                'last_longitude' => $request->lastLongitude
+                ]);
         $user = $user->whereId($userId)->with(['reserves', 'barbecues'])->first();
         return response()->json([
             'access_token' => $tokenResult->accessToken,
