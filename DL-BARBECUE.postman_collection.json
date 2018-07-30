@@ -1,0 +1,848 @@
+{
+	"info": {
+		"_postman_id": "d09e5c47-6995-4772-b024-22f4880f7a77",
+		"name": "DL-BARBECUE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5c2ee149-b6c9-4119-87af-8a3aabcad09a",
+						"type": "text/javascript",
+						"exec": [
+							"var data = pm.response.json();",
+							"",
+							"pm.environment.set(\"token\", data.token_type + ' ' + data.access_token);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "ronny13@example.org",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "secret",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/auth/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SignUp",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5c2ee149-b6c9-4119-87af-8a3aabcad09a",
+						"type": "text/javascript",
+						"exec": [
+							"var data = pm.response.json();",
+							"",
+							"pm.environment.set(\"token\", data.token_type + ' ' + data.access_token);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "lamasdev+1@gmail.com",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "secret",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password_confirmation",
+							"value": "secret",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "lastLatitude",
+							"value": "0.074205",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "lastLongitude",
+							"value": "-116.917377",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "zipCode",
+							"value": "1010",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "lastName",
+							"value": "Lamas",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Diego",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/auth/signup",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "45b6bdd2-385c-4453-a97a-c94ac2d626c8",
+						"type": "text/javascript",
+						"exec": [
+							"var data = pm.response.json();",
+							"",
+							"pm.environment.set(\"token\", \"\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{url}}/api/auth/logout",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "daphney.rutherford@example.net",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "secret",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/auth/user",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Barbecues",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "daphney.rutherford@example.net",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "secret",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/auth/barbecue",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"barbecue"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Barbecue",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4bab0ad5-a5c6-4a3e-aaef-07dcf535c6dd",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "daphney.rutherford@example.net",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "secret",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"description": "",
+							"type": "file"
+						},
+						{
+							"key": "model",
+							"value": "modelo serie a",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "latitude",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "longitude",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/auth/barbecue",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"barbecue"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Barbecue",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "daphney.rutherford@example.net",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "secret",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/auth/barbecue/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"barbecue",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Barbecue Update",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4bab0ad5-a5c6-4a3e-aaef-07dcf535c6dd",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "cambio",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "secret",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"value": "imagen",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "model",
+							"value": "modelo serie a",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "latitude",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "longitude",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "_method",
+							"value": "PATCH",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/auth/barbecue/3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"barbecue",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Barbecue",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "daphney.rutherford@example.net",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "secret",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/auth/barbecue/3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"barbecue",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reserve Barbecues",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "daphney.rutherford@example.net",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "secret",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/auth/reserve",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"reserve"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reserve Barbecue",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "daphney.rutherford@example.net",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "secret",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/auth/reserve/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"reserve",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reserve Barbecue",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4bab0ad5-a5c6-4a3e-aaef-07dcf535c6dd",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "reservedFrom",
+							"value": "2018-07-29 15:00:00",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "reservedTo",
+							"value": "2018-07-29 16:00:00",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "bbqId",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/auth/reserve",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"reserve"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reserve Barbecue",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4bab0ad5-a5c6-4a3e-aaef-07dcf535c6dd",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"reservedFrom\" : \"2018-07-29 14:00:00\",\n\t\"reservedTo\" : \"2018-07-29 14:39:00\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/auth/reserve/4",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"reserve",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reserve Barbecue",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4bab0ad5-a5c6-4a3e-aaef-07dcf535c6dd",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"reservedFrom\" : \"2018-07-29 14:00:00\",\n\t\"reservedTo\" : \"2018-07-29 14:59:00\",\n\t\"bbqId\" : \"1\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/auth/reserve/4",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"reserve",
+						"4"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
