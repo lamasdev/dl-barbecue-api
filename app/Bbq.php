@@ -40,7 +40,7 @@ class Bbq extends Model
 
     public function getImageAttribute($value)
     {
-        return !is_null($value) ? Storage::url('public/uploads/barbecues/' . $value) : null;
+        return !is_null($value) ? env('APP_URL', 'http://dlbarbecue.test') . Storage::url('public/uploads/barbecues/' . $value) : null;
     }
 
 }

@@ -105,7 +105,7 @@ class BarbecueController extends Controller
         ]);
         $hasImage = $request->hasFile('image');
         $destinationPath = 'public/uploads/barbecues';
-        $oldImageName = str_replace('/storage/uploads/barbecues/', '', $bbq->image);
+        $oldImageName = str_replace(env('APP_URL', 'http://dlbarbecue.test') . '/storage/uploads/barbecues/', '', $bbq->image);
         if ($hasImage) {
             $oldImage = Storage::delete($destinationPath . '/' . $oldImageName);
             $image = $request->file('image');
@@ -141,7 +141,8 @@ class BarbecueController extends Controller
             return response()->json([
                 'message' => 'Unauthorized'
             ], 401);
-        Storage::delete('public/uploads/barbecues/' . $bbq->image);
+        $oldImageName = str_replace(env('APP_URL', 'http://dlbarbecue.test') . '/storage/uploads/barbecues/', '', $bbq->image);
+        Storage::delete('public/uploads/barbecues/' . $oldImageName);
         $bbq->delete();
         return response()->json([
             'message' => 'Successfully deleted barbecue!',
