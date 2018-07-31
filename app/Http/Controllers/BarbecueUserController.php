@@ -59,10 +59,10 @@ class BarbecueUserController extends Controller
             return response()->json([
                 'message' => 'Barbecue not found.'
             ], 404);
-        // dd();
         $reservedBarbecues = BbqUser::whereBbqId($bbq->id)
         ->whereBetween('reserved_from', [$request->reservedFrom, $request->reservedTo])
         ->orWhereBetween('reserved_to', [$request->reservedFrom, $request->reservedTo])
+        ->whereBbqId($bbq->id)
         ->count();
         if($reservedBarbecues > 0)
             return response()->json([
@@ -106,6 +106,7 @@ class BarbecueUserController extends Controller
         $reservedBarbecues = BbqUser::whereBbqId($id)->where('id', '<>', $id)
         ->whereBetween('reserved_from', [$request->reservedFrom, $request->reservedTo])
         ->orWhereBetween('reserved_to', [$request->reservedFrom, $request->reservedTo])
+        ->whereBbqId($bbq->id)->where('id', '<>', $id)
         ->count();
         if($reservedBarbecues > 0)
             return response()->json([
