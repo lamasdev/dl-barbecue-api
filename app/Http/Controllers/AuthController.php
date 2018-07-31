@@ -77,7 +77,7 @@ class AuthController extends Controller
         $token->save();
         $userId = $user->id;
         if(isset($request->lastLatitude) && isset($request->lastLongitude))
-            $user->whereId($userId)->update([
+            $user->update([
                 'last_latitude' => $request->lastLatitude,
                 'last_longitude' => $request->lastLongitude
                 ]);
