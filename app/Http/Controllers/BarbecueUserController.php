@@ -51,7 +51,7 @@ class BarbecueUserController extends Controller
     {
         $user = $request->user();
         $request->validate([
-            'reservedFrom' => 'required|date_format:"Y-m-d H:i:s"',
+            'reservedFrom' => 'required|date_format:"Y-m-d H:i:s"|after:'.date("Y-m-d H:i:s"),
             'reservedTo' => 'required|date_format:"Y-m-d H:i:s"|after:'.$request->reservedFrom,
         ]);
         $bbq = Bbq::whereId($request->bbqId)->first();
@@ -99,7 +99,7 @@ class BarbecueUserController extends Controller
                 'message' => 'Unauthorized'
             ], 401);
         $request->validate([
-            'reservedFrom' => 'required|date_format:"Y-m-d H:i:s"',
+            'reservedFrom' => 'required|date_format:"Y-m-d H:i:s"|after:'.date("Y-m-d H:i:s"),
             'reservedTo' => 'required|date_format:"Y-m-d H:i:s"|after:'.$request->reservedFrom,
         ]);
         $reservedBarbecues = BbqUser::whereBbqId($id)->where('id', '<>', $id)

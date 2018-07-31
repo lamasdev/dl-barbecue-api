@@ -19,10 +19,10 @@ class BarbecueController extends Controller
         $user = $request->user();
         $minDist = 10;
         $bbqs = Bbq::all()->filter(function ($barbecue, $key) use ($user, $minDist) {
-            if(!isset($user->last_latitude) || !isset($user->last_longitude) || !isset($barbecue->latitude) || !isset($barbecue->longitude))
+            if($user->id == $barbecue->user_id || !isset($user->last_latitude) || !isset($user->last_longitude) || !isset($barbecue->latitude) || !isset($barbecue->longitude))
                 return false;
-            return self::distance($barbecue->latitude, $barbecue->longitude, $user->last_latitude, $user->last_longitude, $minDist); //$barbecue > 2;
-        });
+            return self::distance($barbecue->latitude, $barbecue->longitude, $user->last_latitude, $user->last_longitude, $minDist);
+        })->values();
         return response()->json([
             'barbecues' => $bbqs
         ], 200);
@@ -42,8 +42,6 @@ class BarbecueController extends Controller
             'description' => 'string|max:255',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'model' => 'string|max:20',
-            'latitude' => 'required|string|max:10',
-            'longitude' => 'required|string|max:10',
         ]);
 
         if ($request->hasFile('image')) {
@@ -104,13 +102,11 @@ class BarbecueController extends Controller
             'description' => 'string|max:255',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'model' => 'string|max:20',
-            'latitude' => 'required|string|max:10',
-            'longitude' => 'required|string|max:10',
         ]);
-
-        if ($request->hasFile('image')) {
-            $destinationPath = 'public/uploads/barbecues';
-            $oldImageName = str_replace('/storage/uploads/barbecues/', '', $bbq->image);
+        $hasImage = $request->hasFile('image');
+        $destinationPath = 'public/uploads/barbecues';
+        $oldImageName = str_replace('/storage/uploads/barbecues/', '', $bbq->image);
+        if ($hasImage) {
             $oldImage = Storage::delete($destinationPath . '/' . $oldImageName);
             $image = $request->file('image');
             $name = time().'_'.$bbq->user_id.'.'.$image->getClientOriginalExtension();
@@ -121,7 +117,7 @@ class BarbecueController extends Controller
         $bbq->update([
             'name' => $request->name,
             'description' => $request->description,
-            'image' => $request->image,
+            'image' => $hasImage ? $request->image : $oldImageName,
             'model' => $request->model,
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
